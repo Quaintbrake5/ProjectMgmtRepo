@@ -5,7 +5,7 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+//import com.example.ProjectManagementSystem.models.Task;
 @Getter
 @Entity
 @Setter
@@ -35,23 +35,4 @@ public class Project {
         this.tasks = tasks;
     }
 
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
-
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
 }
