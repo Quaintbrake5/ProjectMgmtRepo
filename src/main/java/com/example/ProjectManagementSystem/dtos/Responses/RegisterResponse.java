@@ -9,4 +9,7 @@ import lombok.*;
 public class RegisterResponse {
     private Long userId;
     private String message;
+
+    public RegisterResponse(Long userId, String email, String userRegisteredSuccessfully) {
+    }
 }

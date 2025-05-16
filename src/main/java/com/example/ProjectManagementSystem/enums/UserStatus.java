@@ -4,7 +4,8 @@ public enum UserStatus {
     ACTIVE,
     INACTIVE,
     SUSPENDED,
-    DELETED;
+    DELETED,
+    LOCKED;
 
     public static UserStatus fromString(String status) {
         for (UserStatus userStatus : UserStatus.values()) {

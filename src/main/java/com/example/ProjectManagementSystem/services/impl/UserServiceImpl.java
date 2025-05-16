@@ -1,6 +1,7 @@
 package com.example.ProjectManagementSystem.services.impl;
 
 
+import com.example.ProjectManagementSystem.exceptions.UserNotFoundException;
 import com.example.ProjectManagementSystem.models.User;
 import com.example.ProjectManagementSystem.repositories.UserRepository;
 import com.example.ProjectManagementSystem.services.UserService;
@@ -52,13 +53,10 @@ public class UserServiceImpl implements UserService {
             User existingUser = existingUserOpt.get();
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
-            if (user.getPasswordHash() != null && !user.getPasswordHash().isEmpty()) {
-                existingUser.setPasswordHash(encoder.encode(user.getPasswordHash()));
-            }
-            // Update other fields as needed
+            existingUser.setPasswordHash(encoder.encode(user.getPasswordHash()));
             return repo.save(existingUser);
         } else {
-            throw new NoSuchElementException("User not found with id: " + userId);
+            throw new UserNotFoundException("User not found with id: " + userId);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.ProjectManagementSystem.models;
 
 import com.example.ProjectManagementSystem.enums.UserStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.HashSet;
@@ -20,6 +21,7 @@ import java.util.Set;
 
 
 public class User {
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
@@ -27,19 +29,24 @@ public class User {
     @Column(unique = true, nullable = false)
     private String name;
 
+    @Setter
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Setter
     @Column(nullable = false)
     private String passwordHash;
 
+    @Setter
     @Column(nullable = false)
     private String role;
 
+    @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserStatus status;
 
+    @Setter
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
@@ -62,15 +69,11 @@ public class User {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name, @NotBlank String lastName) {
         this.name = name;
     }
 
@@ -78,39 +81,20 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPasswordHash() {
         return passwordHash;
-    }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
     }
 
     public String getRole() {
         return role;
     }
 
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public UserStatus getStatus() {
         return status;
-    }
-
-    public void setStatus(UserStatus status) {
-        this.status = status;
     }
 
     public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
 }
