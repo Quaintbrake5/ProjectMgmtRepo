@@ -12,6 +12,7 @@ import java.util.List;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "Project")
+@Builder
 
 
 public class Project {

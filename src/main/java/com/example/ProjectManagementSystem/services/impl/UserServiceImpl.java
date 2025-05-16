@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(User user) {
-        user.setPassword(encoder.encode(user.getPassword()));
+        user.setPasswordHash(encoder.encode(user.getPasswordHash()));
         return repo.save(user);
     }
 
@@ -52,8 +52,8 @@ public class UserServiceImpl implements UserService {
             User existingUser = existingUserOpt.get();
             existingUser.setName(user.getName());
             existingUser.setEmail(user.getEmail());
-            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-                existingUser.setPassword(encoder.encode(user.getPassword()));
+            if (user.getPasswordHash() != null && !user.getPasswordHash().isEmpty()) {
+                existingUser.setPasswordHash(encoder.encode(user.getPasswordHash()));
             }
             // Update other fields as needed
             return repo.save(existingUser);
