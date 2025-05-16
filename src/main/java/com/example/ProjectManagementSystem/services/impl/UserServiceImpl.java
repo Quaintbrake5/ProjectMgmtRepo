@@ -7,6 +7,8 @@ import com.example.ProjectManagementSystem.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 
 @Service
@@ -37,11 +39,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void deleteUser(Long userId) {
         repo.deleteById(userId);
     }
 
     @Override
+    @Transactional
     public User updateUser(User user, Long userId) {
         Optional<User> existingUserOpt = repo.findById(userId);
         if (existingUserOpt.isPresent()) {

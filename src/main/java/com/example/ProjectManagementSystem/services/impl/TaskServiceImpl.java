@@ -1,11 +1,13 @@
 package com.example.ProjectManagementSystem.services.impl;
 
+import com.example.ProjectManagementSystem.exceptions.UserNotFoundException;
 import com.example.ProjectManagementSystem.models.Task;
 import com.example.ProjectManagementSystem.repositories.TaskRepository;
 import com.example.ProjectManagementSystem.repositories.UserRepository;
 import com.example.ProjectManagementSystem.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -25,6 +27,7 @@ public class TaskServiceImpl  implements TaskService {
     }
 
     @Override
+    @Transactional
     public void updateTask(Long taskId, String taskName, String taskDescription, String dueDate) {
         Task task = taskRepo.findById(taskId).orElseThrow(() -> new NoSuchElementException("Task not found with id: " + taskId));
         task.setTaskName(taskName);
@@ -33,8 +36,13 @@ public class TaskServiceImpl  implements TaskService {
     }
 
     @Override
+    @Transactional
     public void deleteTask(Long taskId) {
         taskRepo.deleteById(taskId);
+
+        if (!taskRepo.existsById(taskId)) {
+            throw new NoSuchElementException("Task not found with id: " + taskId);
+        }
     }
 
     @Override
@@ -43,16 +51,27 @@ public class TaskServiceImpl  implements TaskService {
         // Assuming Task has a method to add a user
         task.addUser(userId);
         taskRepo.save(task);
+
+        // Assuming User has a method to add a task
+        if (task.getAssignedTo() == null) {
+            task.setAssignedTo(repo.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found with id: " + userId)));
+        } else {
+            throw new UserNotFoundException("User already assigned to task: " + taskId);
+        }
     }
 
     @Override
+    @Transactional
     public void removeUserFromTask(Long taskId, Long userId) {
         Task task = taskRepo.findById(taskId).orElseThrow(() -> new NoSuchElementException("Task not found with id: " + taskId));
         // For single user assignment, just set assignedTo to null if the user matches
         if (task.getAssignedTo() != null && task.getAssignedTo().getUserId().equals(userId)) {
             task.setAssignedTo(null);
             taskRepo.save(task);
+        } else {
+            throw new UserNotFoundException("User not found with id: " + userId + " in task: " + taskId);
         }
+
     }
 
     @Override
