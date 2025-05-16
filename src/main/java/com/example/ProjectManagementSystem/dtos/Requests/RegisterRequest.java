@@ -11,11 +11,9 @@ import lombok. *;
 @AllArgsConstructor
 @Builder
 public class RegisterRequest {
-    @NotBlank(message = "First name mustn't be empty!")
-    private String firstName;
-
-    @NotBlank(message = "Last name must not be empty")
-    private String lastName;
+    @NotBlank(message = "Name must not be empty")
+    @Size(min = 2, message = "Name must be at least 2 characters")
+    private String name;
 
     @Email(message = "Must be a valid email address")
     @NotBlank(message = "Email must not be empty")
@@ -24,6 +22,7 @@ public class RegisterRequest {
     @NotBlank(message = "Password must not be empty")
     @Size(min = 6, message = "Password must be at least 8 characters")
     private String password;
+
 
 //    @NotBlank(message = "Confirm password must not be empty")
 //    @Size(min = 6, message = "Confirm password must be at least 8 characters")

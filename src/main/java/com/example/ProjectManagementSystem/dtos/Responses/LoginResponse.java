@@ -8,6 +8,16 @@ import java.time.Instant;
 
 @Builder
 public record LoginResponse(
+
+        @JsonProperty("user_id")
+        Long userId,
+
+        @JsonProperty("email")
+        String email,
+
+        @JsonProperty("name")
+        String name,
+
         @JsonProperty("access_token")
         String accessToken,
 
@@ -21,5 +31,10 @@ public record LoginResponse(
         Instant expiresAt
 
 ) {
+    public LoginResponse {
+        if (userId == null || email == null || name == null || accessToken == null || tokenType == null || expiresIn == null || expiresAt == null) {
+            throw new IllegalArgumentException("All fields must be provided");
+        }
+    }
 
 }

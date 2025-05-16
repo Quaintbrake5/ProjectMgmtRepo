@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -73,10 +74,6 @@ public class User {
         return name;
     }
 
-    public void setName(String name, @NotBlank String lastName) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -97,4 +94,6 @@ public class User {
         return roles;
     }
 
+    public void setCreatedAt(LocalDateTime now) {
+    }
 }
