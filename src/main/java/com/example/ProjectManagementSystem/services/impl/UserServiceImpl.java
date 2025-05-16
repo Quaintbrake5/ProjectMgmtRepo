@@ -32,18 +32,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> getSingleUser(Long id) {
-        return repo.findById(id);
+    public Optional<User> getSingleUser(Long userId) {
+        return repo.findById(userId);
     }
 
     @Override
-    public void deleteUser(Long id) {
-        repo.deleteById(id);
+    public void deleteUser(Long userId) {
+        repo.deleteById(userId);
     }
 
     @Override
-    public User updateUser(User user, Long id) {
-        Optional<User> existingUserOpt = repo.findById(id);
+    public User updateUser(User user, Long userId) {
+        Optional<User> existingUserOpt = repo.findById(userId);
         if (existingUserOpt.isPresent()) {
             User existingUser = existingUserOpt.get();
             existingUser.setName(user.getName());
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
             // Update other fields as needed
             return repo.save(existingUser);
         } else {
-            throw new NoSuchElementException("User not found with id: " + id);
+            throw new NoSuchElementException("User not found with id: " + userId);
         }
     }
 }
