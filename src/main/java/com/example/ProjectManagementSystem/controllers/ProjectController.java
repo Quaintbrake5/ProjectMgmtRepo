@@ -42,7 +42,7 @@ public class ProjectController {
     }
 
     //add  logic to remove a task from a project
-    @DeleteMapping("/{projectId}/tasks/{taskId}")
+    @DeleteMapping("/{id}/tasks/{taskId}")
     public ResponseEntity<Void> removeTaskFromProject(@PathVariable Long projectId, @PathVariable Long taskId) {
         projectService.removeTaskFromProject(projectId, taskId);
         return ResponseEntity.noContent().build();
