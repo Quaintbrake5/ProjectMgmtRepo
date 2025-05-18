@@ -1,10 +1,12 @@
 package com.example.ProjectManagementSystem.services.impl;
 
 
+import com.example.ProjectManagementSystem.dtos.Requests.RegisterRequest;
 import com.example.ProjectManagementSystem.exceptions.UserNotFoundException;
 import com.example.ProjectManagementSystem.models.User;
 import com.example.ProjectManagementSystem.repositories.UserRepository;
 import com.example.ProjectManagementSystem.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -19,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User register(User user) {
+    public User register(@Valid RegisterRequest user) {
         user.setPasswordHash(encoder.encode(user.getPasswordHash()));
         return repo.save(user);
     }
