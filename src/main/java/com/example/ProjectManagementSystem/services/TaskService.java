@@ -1,9 +1,14 @@
 package com.example.ProjectManagementSystem.services;
 
-public interface TaskService {
-    void createTask(Long taskId,String taskName, String taskDescription, String dueDate, Long projectId);
+import com.example.ProjectManagementSystem.models.Task;
 
-    void updateTask(Long taskId, String taskName, String taskDescription, String dueDate);
+import java.util.List;
+import java.util.Optional;
+
+public interface TaskService {
+    Task createTask(String taskName, String taskDescription, Long projectId);
+
+    Task updateTask(Long taskId, String taskName, String taskDescription);
 
     void deleteTask(Long taskId);
 
@@ -11,7 +16,7 @@ public interface TaskService {
 
     void removeUserFromTask(Long taskId, Long userId);
 
-    void listAllTasks();
+    List<Task> listAllTasks();
 
-    void getTaskDetails(Long taskId);
+    Optional<Task> getTaskDetails(Long taskId);
 }

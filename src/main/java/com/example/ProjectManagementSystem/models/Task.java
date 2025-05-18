@@ -2,6 +2,8 @@ package com.example.ProjectManagementSystem.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -15,6 +17,7 @@ import lombok.*;
 
 public class Task {
 
+    private Date dueDate = new Date();
     /** Unique identifier for the task */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +40,7 @@ public class Task {
         this.project = project;
         this.assignedTo = assignedTo;
         this.description = description;
+//        this.dueDate = dueDate;
     }
 
     public Long getTaskId() {
@@ -86,6 +90,7 @@ public class Task {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     public void addUser(Long userId) {
         // Logic to add a user to the task

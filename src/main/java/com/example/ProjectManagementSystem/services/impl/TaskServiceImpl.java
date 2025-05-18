@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class TaskServiceImpl  implements TaskService {
@@ -18,21 +19,22 @@ public class TaskServiceImpl  implements TaskService {
     @Autowired private UserRepository repo;
 
     @Override
-    public void createTask(Long taskId ,String taskName, String taskDescription, String dueDate, Long projectId) {
+    public Task createTask(String taskName, String taskDescription, Long projectId) {
          Task task = new Task();
-         task.setTaskId(taskId);
          task.setTaskName(taskName);
          task.setDescription(taskDescription);
          taskRepo.save(task);
+         return task;
     }
 
     @Override
     @Transactional
-    public void updateTask(Long taskId, String taskName, String taskDescription, String dueDate) {
+    public Task updateTask(Long taskId, String taskName, String taskDescription) {
         Task task = taskRepo.findById(taskId).orElseThrow(() -> new NoSuchElementException("Task not found with id: " + taskId));
         task.setTaskName(taskName);
         task.setDescription(taskDescription);
         taskRepo.save(task);
+        return task;
     }
 
     @Override
@@ -75,18 +77,20 @@ public class TaskServiceImpl  implements TaskService {
     }
 
     @Override
-    public void listAllTasks() {
+    public List<Task> listAllTasks() {
         List<Task> tasks = taskRepo.findAll();
         for (Task task : tasks) {
             System.out.println("Task ID: " + task.getTaskId() + ", Task Name: " + task.getTaskName());
         }
+        return tasks;
     }
 
     @Override
-    public void getTaskDetails(Long taskId) {
+    public Optional<Task> getTaskDetails(Long taskId) {
         Task task = taskRepo.findById(taskId).orElseThrow(() -> new NoSuchElementException("Task not found with id: " + taskId));
         System.out.println("Task ID: " + task.getTaskId());
         System.out.println("Task Name: " + task.getTaskName());
         System.out.println("Description: " + task.getDescription());
+        return Optional.of(task);
     }
 }
