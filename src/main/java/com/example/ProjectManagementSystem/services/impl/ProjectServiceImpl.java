@@ -10,7 +10,6 @@ import com.example.ProjectManagementSystem.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -19,7 +18,7 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired private TaskRepository taskRepo;
 
     @Override
-    public void createProject(String projectName, String projectDescription, String startDate, String endDate) {
+    public Project createProject(String projectName, String projectDescription) {
         // Validate input parameters
         if (projectName == null || projectName.isEmpty()) {
             throw new IllegalArgumentException("Project name cannot be null or empty");
@@ -33,10 +32,11 @@ public class ProjectServiceImpl implements ProjectService {
         project.setName(projectName);
         project.setDescription(projectDescription);
         projectRepo.save(project);
+        return project;
     }
 
     @Override
-    public void updateProject(Long projectId, String projectName, String projectDescription, String startDate, String endDate) {
+    public Project updateProject(Long projectId, String projectName, String projectDescription) {
         Optional<Project> projectOpt = projectRepo.findById(projectId);
         if (projectOpt.isPresent()) {
             Project project = projectOpt.get();
@@ -46,6 +46,7 @@ public class ProjectServiceImpl implements ProjectService {
         } else {
             throw new NoSuchElementException("Project not found with id: " + projectId);
         }
+        return projectOpt.get();
     }
 
     @Override
@@ -81,15 +82,20 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void listAllProjects() {
+    public List<Project> listAllProjects() {
         List<Project> projects = projectRepo.findAll();
         projects.forEach(System.out::println);
+        return projects;
     }
 
     @Override
-    public void getProjectDetails(Long projectId) {
-        Project project = projectRepo.findById(projectId)
+    public Optional<Project> getProjectDetails(Long projectId) {
+        return projectRepo.findById(projectId);
+    }
+
+    @Override
+    public Project getProjectById(Long projectId) {
+        return projectRepo.findById(projectId)
                 .orElseThrow(() -> new NoSuchElementException("Project not found with id: " + projectId));
-        System.out.println();
     }
 }

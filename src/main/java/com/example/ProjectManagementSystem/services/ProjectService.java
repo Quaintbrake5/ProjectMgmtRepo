@@ -1,9 +1,14 @@
 package com.example.ProjectManagementSystem.services;
 
-public interface ProjectService {
-    void createProject(String projectName, String projectDescription, String startDate, String endDate);
+import com.example.ProjectManagementSystem.models.Project;
 
-    void updateProject(Long projectId, String projectName, String projectDescription, String startDate, String endDate);
+import java.util.List;
+import java.util.Optional;
+
+public interface ProjectService {
+    Project createProject(String projectName, String projectDescription);
+
+    Project updateProject(Long projectId, String projectName, String projectDescription);
 
     void deleteProject(Long projectId);
 
@@ -11,7 +16,9 @@ public interface ProjectService {
 
     void removeTaskFromProject(Long projectId, Long taskId);
 
-    void listAllProjects();
+    List<Project> listAllProjects();
 
-    void getProjectDetails(Long projectId);
+    Optional<Project> getProjectDetails(Long projectId);
+
+    Project getProjectById(Long projectId);
 }
