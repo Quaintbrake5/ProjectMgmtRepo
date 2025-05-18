@@ -44,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
         User user = new User();
         user.setName(request.getName());
         user.setEmail(request.getEmail());
-        user.setPasswordHash(PasswordUtil.encode(request.getPassword()));
+        user.setPasswordHash(PasswordUtil.encode(request.getPasswordHash()));
         user.setStatus(UserStatus.ACTIVE);
         user.setCreatedAt(LocalDateTime.now());
         user.setRoles(Collections.singleton(roleRepository.findByName("USER").orElseThrow(() -> new RuntimeException("Role not found"))));
