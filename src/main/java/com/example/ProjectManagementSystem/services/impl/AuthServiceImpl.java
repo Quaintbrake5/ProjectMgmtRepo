@@ -3,7 +3,7 @@ package com.example.ProjectManagementSystem.services.impl;
 import com.example.ProjectManagementSystem.dtos.Requests.RegisterRequest;
 import com.example.ProjectManagementSystem.enums.UserStatus;
 import com.example.ProjectManagementSystem.exceptions.UserAlreadyExistsException;
-import com.example.ProjectManagementSystem.models.Role;
+//import com.example.ProjectManagementSystem.models.Role;
 import com.example.ProjectManagementSystem.models.User;
 import com.example.ProjectManagementSystem.repositories.RoleRepository;
 import com.example.ProjectManagementSystem.repositories.UserRepository;
@@ -30,28 +30,29 @@ import java.util.Collections;
 public class AuthServiceImpl implements AuthService {
     @Autowired UserRepository userRepository;
     @Autowired RoleRepository roleRepository;
-    @Autowired PasswordUtil passwordUtil;
+//    @Autowired PasswordUtil;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
 
 
     @Override
     public RegisterResponse register(RegisterRequest request) {
-        if (userRepository.existsByEmail(request.getEmail())) {
+        if (userRepository.existsByEmail(request.getEmail()))
             throw new UserAlreadyExistsException("User with email " + request.getEmail() + " already exists.");
+        else {
+            User user = new User();
+            user.setName(request.getName());
+            user.setEmail(request.getEmail());
+            user.setPasswordHash(PasswordUtil.encode(request.getPasswordHash()));
+            user.setStatus(UserStatus.ACTIVE);
+            user.setCreatedAt(LocalDateTime.now());
+            user.setRoles(Collections.singleton(roleRepository.findByName("USER").orElseThrow(() -> new RuntimeException("Role not found"))));
+
+            userRepository.save(user);
+
+            return new RegisterResponse(user.getUserId(), user.getName(), user.getEmail());
         }
 
-        User user = new User();
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPasswordHash(PasswordUtil.encode(request.getPasswordHash()));
-        user.setStatus(UserStatus.ACTIVE);
-        user.setCreatedAt(LocalDateTime.now());
-        user.setRoles(Collections.singleton(roleRepository.findByName("USER").orElseThrow(() -> new RuntimeException("Role not found"))));
-
-        userRepository.save(user);
-
-        return new RegisterResponse(user.getUserId(), user.getName(), user.getEmail());
     }
 
     @Override

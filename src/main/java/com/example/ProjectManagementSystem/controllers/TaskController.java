@@ -21,9 +21,9 @@ public class TaskController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/{taskId}")
-    public ResponseEntity<Optional<Task>> getTaskDetails(@PathVariable Long id) {
-        Optional<Task> task = taskService.getTaskDetails(id);
+    @GetMapping
+    public ResponseEntity<Optional<Task>> getTaskDetails(@PathVariable("taskId") Long taskId) {
+        Optional<Task> task = taskService.getTaskDetails(taskId);
         return ResponseEntity.ok(task);
     }
 
@@ -38,9 +38,9 @@ public class TaskController {
         return ResponseEntity.ok(updatedTask);
     }
 
-    @DeleteMapping("/{taskId}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-        taskService.deleteTask(id);
+    @DeleteMapping
+    public ResponseEntity<Void> deleteTask(@PathVariable("taskId") Long taskId) {
+        taskService.deleteTask(taskId);
         return ResponseEntity.ok().build();
     }
 

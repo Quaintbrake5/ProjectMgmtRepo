@@ -15,10 +15,10 @@ public class UserNotFoundException extends RuntimeException {
         super(message);
     }
 
-    /**
-     * Construct a new UserNotFoundException with a default message.
-     */
-    public UserNotFoundException() {
-        super("User not found");
-    }
+//    /**
+//     * Construct a new UserNotFoundException with a default message.
+//     */
+//    public UserNotFoundException() {
+//        super("User not found");
+//    }
 }

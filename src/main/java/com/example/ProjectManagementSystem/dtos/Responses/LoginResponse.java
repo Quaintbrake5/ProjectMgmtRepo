@@ -2,8 +2,6 @@ package com.example.ProjectManagementSystem.dtos.Responses;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
-import org.springframework.security.oauth2.server.authorization.OAuth2Authorization;
-
 import java.time.Instant;
 
 @Builder

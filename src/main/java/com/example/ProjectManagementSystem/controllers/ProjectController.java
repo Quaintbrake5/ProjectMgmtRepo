@@ -22,28 +22,28 @@ public class ProjectController {
     }
 
     //add logic to update a project
-    @PutMapping("/{id}")
+    @PutMapping("/{projectId}")
     public ResponseEntity<Project> updateProject(@PathVariable Long id, @Valid @RequestBody Project project) {
         return ResponseEntity.ok(projectService.updateProject(id, project.getName(), project.getDescription()));
     }
 
     // add logic to delete a project
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{projectId}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         projectService.deleteProject(id);
         return ResponseEntity.noContent().build();
     }
 
     // add logic to assign a task to a project
-    @PostMapping("/{id}/tasks/{taskId}")
-    public ResponseEntity<Void> assignTaskToProject(@PathVariable Long projectId, @PathVariable Long taskId) {
+    @PostMapping("/{projectId}/tasks/{taskId}")
+    public ResponseEntity<Void> assignTaskToProject(@PathVariable("projectId") Long projectId, @PathVariable("taskId") Long taskId) {
         projectService.assignTaskToProject(projectId, taskId);
         return ResponseEntity.ok().build();
     }
 
     //add  logic to remove a task from a project
-    @DeleteMapping("/{id}/tasks/{taskId}")
-    public ResponseEntity<Void> removeTaskFromProject(@PathVariable Long projectId, @PathVariable Long taskId) {
+    @DeleteMapping("/{projectId}/tasks/{taskId}")
+    public ResponseEntity<Void> removeTaskFromProject(@PathVariable("projectId") Long projectId, @PathVariable("taskId") Long taskId) {
         projectService.removeTaskFromProject(projectId, taskId);
         return ResponseEntity.noContent().build();
     }
@@ -55,7 +55,7 @@ public class ProjectController {
     }
 
     //add logic to get project details
-    @GetMapping("/{id}")
+    @GetMapping("/{projectId}")
     public ResponseEntity<Project> getProjectById(@PathVariable Long id) {
         return ResponseEntity.ok(projectService.getProjectById(id));
     }

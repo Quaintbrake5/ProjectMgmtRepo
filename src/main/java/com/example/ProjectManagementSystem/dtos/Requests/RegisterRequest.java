@@ -1,6 +1,5 @@
 package com.example.ProjectManagementSystem.dtos.Requests;
 
-import jakarta.validation.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -23,8 +22,4 @@ public class RegisterRequest {
     @Size(min = 6, message = "Password must be at least 8 characters")
     private String passwordHash;
 
-
-//    @NotBlank(message = "Confirm password must not be empty")
-//    @Size(min = 6, message = "Confirm password must be at least 8 characters")
-//    private String confirmPassword;
 }
