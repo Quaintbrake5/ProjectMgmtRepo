@@ -4,6 +4,8 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,11 @@ public class JwtTokenProvider {
     @Value("${app.jwt-secret}")
     private String secretKey;
 
+    //    /**
+    //     * @return token validity in milliseconds
+    //     */
+    @Setter
+    @Getter
     @Value("${app.jwt-expiration-milliseconds}")
     private long validityInMilliseconds;
 
@@ -72,10 +79,4 @@ public class JwtTokenProvider {
         return claims.getSubject();
     }
 
-//    /**
-//     * @return token validity in milliseconds
-//     */
-    public long getValidityInMilliseconds() {
-        return validityInMilliseconds;
-    }
 }

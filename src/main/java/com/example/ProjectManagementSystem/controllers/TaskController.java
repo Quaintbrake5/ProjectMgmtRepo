@@ -21,7 +21,7 @@ public class TaskController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
+    @GetMapping("/{taskId}")
     public ResponseEntity<Optional<Task>> getTaskDetails(@PathVariable("taskId") Long taskId) {
         Optional<Task> task = taskService.getTaskDetails(taskId);
         return ResponseEntity.ok(task);

@@ -2,7 +2,6 @@ package com.example.ProjectManagementSystem.models;
 
 import com.example.ProjectManagementSystem.enums.UserStatus;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,7 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -22,18 +21,22 @@ import java.util.Set;
 
 
 public class User {
+    @Getter
     @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @Getter
     @Column(unique = true, nullable = false)
     private String name;
 
+    @Getter
     @Setter
     @Column(unique = true, nullable = false)
     private String email;
 
+    @Getter
     @Setter
     @Column(nullable = false)
     private String passwordHash;
@@ -42,11 +45,13 @@ public class User {
     @Column(nullable = false)
     private String role;
 
+    @Getter
     @Setter
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UserStatus status;
 
+    @Getter
     @Setter
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -66,34 +71,10 @@ public class User {
         this.status = UserStatus.ACTIVE;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
+    //    public String getRole() {
+//        return role;
+//    }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPasswordHash() {
-        return passwordHash;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public UserStatus getStatus() {
-        return status;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setCreatedAt(LocalDateTime now) {
+    public void setCreatedAt(LocalDateTime ignoredNow) {
     }
 }

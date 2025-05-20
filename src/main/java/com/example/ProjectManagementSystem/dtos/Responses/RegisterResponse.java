@@ -8,8 +8,10 @@ import lombok.*;
 @Builder
 public class RegisterResponse {
     private Long userId;
-    private String message;
+//    private String userRegisteredSuccessfully;
+    private String name;
+    private String email;
 
-    public RegisterResponse(Long userId, String email, String userRegisteredSuccessfully) {
-    }
+//    public RegisterResponse(Long userId, String email, String userRegisteredSuccessfully) {
+//    }
 }

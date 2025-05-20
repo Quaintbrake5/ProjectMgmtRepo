@@ -30,9 +30,8 @@ public record LoginResponse(
 
 ) {
     public LoginResponse {
-        if (userId == null || email == null || name == null || accessToken == null || tokenType == null || expiresIn == null || expiresAt == null) {
+        if (email == null || name == null) {
             throw new IllegalArgumentException("All fields must be provided");
         }
     }
-
 }

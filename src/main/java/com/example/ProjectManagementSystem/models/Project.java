@@ -13,6 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Table(name = "Project")
 @Builder
+@AllArgsConstructor
 
 
 public class Project {
@@ -27,13 +28,4 @@ public class Project {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Task> tasks = new ArrayList<>();
-
-    public Project(Long projectId, String name, String description, User owner, List<Task> tasks) {
-        this.projectId = projectId;
-        this.name = name;
-        this.description = description;
-        this.owner = owner;
-        this.tasks = tasks;
-    }
-
 }

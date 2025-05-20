@@ -8,7 +8,7 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @NoArgsConstructor
 @Table(name = "tasks")
 @AllArgsConstructor
@@ -16,8 +16,6 @@ import java.util.Date;
 
 
 public class Task {
-
-    private Date dueDate = new Date();
     /** Unique identifier for the task */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

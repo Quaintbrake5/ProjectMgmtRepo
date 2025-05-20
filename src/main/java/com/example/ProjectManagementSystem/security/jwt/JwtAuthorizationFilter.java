@@ -19,10 +19,6 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     private final JwtTokenProvider jwtTokenProvider;
     private final CustomUserDetailsService userDetailsService;
 
-//    public JwtAuthorizationFilter(JwtTokenProvider jwtTokenProvider, CustomUserDetailsService userDetailsService, JwtTokenProvider jwtTokenProvider1, CustomUserDetailsService userDetailsService1) {
-//        this.jwtTokenProvider = jwtTokenProvider1;
-//        this.userDetailsService = userDetailsService1;
-//    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
