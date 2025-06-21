@@ -82,4 +82,10 @@ public class TaskController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/user-tasks/{userId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<List<Task>> getUserTasks(@PathVariable Long userId) {
+        List<Task> tasks = taskService.getUserTasks(userId);
+        return ResponseEntity.ok(tasks);
+    }
 }

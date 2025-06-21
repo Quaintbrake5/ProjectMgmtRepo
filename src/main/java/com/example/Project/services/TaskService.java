@@ -20,6 +20,9 @@ public interface TaskService {
 
     void removeTaskFromProject(Long taskId, Long projectId);
 
+    // Get user tasks
+    List<Task> getUserTasks(Long userId);
+
     List<Task> listAllTasks();
 
     Optional<Task> getTaskDetails(Long taskId);

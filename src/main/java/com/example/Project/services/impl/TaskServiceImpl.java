@@ -3,6 +3,7 @@ package com.example.Project.services.impl;
 import com.example.Project.exceptions.UserNotFoundException;
 import com.example.Project.models.Project;
 import com.example.Project.models.Task;
+import com.example.Project.models.User;
 import com.example.Project.repository.ProjectRepository;
 import com.example.Project.repository.TaskRepository;
 import com.example.Project.repository.UserRepository;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -114,6 +116,21 @@ public void removeTaskFromProject(Long taskId, Long projectId) {
     taskRepo.save(task);
 }
 
+    @Override
+    public List<Task> getUserTasks(Long userId) {
+        User user = null;
+        if (repo != null) {
+            user = repo.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found with id: " + userId));
+        }
+        List<Task> tasks = null;
+        if (user != null) {
+            tasks = new ArrayList<>(user.getTasks());
+        }
+        if (tasks != null && tasks.isEmpty()) {
+            throw new NoSuchElementException("No projects found for user with id: " + userId);
+        }
+        return tasks;
+    }
 
     @Override
     public List<Task> listAllTasks() {

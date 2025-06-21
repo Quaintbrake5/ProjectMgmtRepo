@@ -20,6 +20,9 @@ public interface ProjectService {
 
     void removeUserFromProject(Long projectId, Long userId);
 
+    // Fetch user's projects
+    List<Project> getUserProjects(Long userId);
+
     List<Project> listAllProjects();
 
     Optional<Project> getProjectById(Long projectId);

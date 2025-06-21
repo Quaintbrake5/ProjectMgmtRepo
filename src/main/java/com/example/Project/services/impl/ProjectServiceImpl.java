@@ -103,6 +103,22 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
+    @Override
+    public List<Project> getUserProjects(Long userId) {
+        User user = null;
+        if (userRepo != null) {
+            user = userRepo.findById(userId).orElseThrow(() -> new NoSuchElementException("User not found with id: " + userId));
+        }
+        List<Project> projects = null;
+        if (user != null) {
+            projects = new ArrayList<>(user.getProjects());
+        }
+        if (projects != null && projects.isEmpty()) {
+            throw new NoSuchElementException("No projects found for user with id: " + userId);
+        }
+        return projects;
+    }
+
 
     @Override
     public List<Project> listAllProjects() {

@@ -81,4 +81,11 @@ public class ProjectController {
         projectService.removeUserFromProject(projectId, userId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/user-projects/{userId}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<List<Project>> getUserProjects(@PathVariable Long userId) {
+        List<Project> userProjects = projectService.getUserProjects(userId);
+        return ResponseEntity.ok(userProjects);
+    }
 }
